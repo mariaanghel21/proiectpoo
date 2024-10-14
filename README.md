@@ -1,11 +1,8 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+Spanzuratoarea
 
-### Important!
-Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.
-Codul generat pus "ca să fie"/pe care nu îl înțelegeți se punctează doar pentru puncte bonus, doar în contextul
-în care oferă funcționalități ajutătoare și doar dacă are sens.
-
-O cerință nu se consideră îndeplinită dacă este realizată doar ca o serie de apeluri proxy către cod generat.
+Joc clasic de spanzuratoarea in care jucatorul1 introduce un cuvant format din n litere(limitele cuvantului pot fi schimbate in functie de dificultatea jocului) iar jucatorul2 incearca sa ghiceasca cuvantul litera cu litera in x miscari(x reprezinta partile corpului spanzutatului; numarul x se poate schimba in functie de dificultatea jocului).
+Programul utilizeaza manipularea stringurilor, cuvantul este impartit litera cu litera, iar algoritmul pune in tabela de joc litera aleasa de jucatorul2 daca aceasta se afla printre literele cuvantului. In caz contrar, o parte a corpului spanzuratului este adaugata. Procesul se repeta pana cand jucatorul2 reuseste sa ghiceasca cuv in nr de miscari disponibule(castiga) sau pana gand omul este spanzurat(pierde).
+Incerc sa fac jocul cu interfata grafica.
 
 ### Cerințe modele de limbaj la nivel de semestru
 - [ ] minim o funcționalitate majoritar doar cu LLM
