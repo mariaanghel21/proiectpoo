@@ -12,24 +12,30 @@ public:
     void play() {
         char guess;
         while (!word.isComplete() && stats.hasGuessesLeft()) {
-            std::cout << *this << "\nEnter your guess: ";
+            std::cout << *this << "\n";
+            stats.drawHangman(); 
+            std::cout << "Enter your guess: ";
             std::cin >> guess;
 
-            if (!std::cin) {
+            if (!std::cin || !std::isalpha(guess)) {
                 std::cout << "Invalid input. Please enter a single letter.\n";
                 std::cin.clear();  
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
                 continue;
             }
 
+            guess = tolower(guess);  
+
             if (!word.guessLetter(guess)) {
                 stats.decreaseGuesses();
             }
+
             if (word.isComplete()) {
                 std::cout << "Congratulations! You've guessed the word!\n";
                 player.addScore(10);
             } else if (!stats.hasGuessesLeft()) {
-                std::cout << "Game over! Out of guesses.\n";
+                stats.drawHangman();  
+                std::cout << "Game over! Out of guesses. The word was: " << word.getFullWord() << "\n";
             }
         }
     }
