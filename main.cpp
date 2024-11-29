@@ -44,7 +44,6 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
-
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
@@ -79,8 +78,60 @@ int main() {
     }
 
     Player player(playerName);
-    HangmanGame game(player, wordToGuess, 6);  
-    game.play();
+    int totalGames = 0;
+    int totalScore = 0;
+    bool playAgain = true;
+
+    while (playAgain) {
+        HangmanGame game(player, wordToGuess, 6);  
+        game.play();
+
+        totalGames++;
+        totalScore += player.getScore();
+
+        std::cout << "Total Games Played: " << totalGames << "\n";
+        std::cout << "Total Score: " << totalScore << "\n";
+
+        char playChoice;
+        std::cout << "Do you want to play again? (y/n): ";
+        std::cin >> playChoice;
+
+        if (playChoice != 'y' && playChoice != 'Y') {
+            playAgain = false;
+        } else {
+            
+            std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
+            std::cin >> level;
+            if (level == 1) {
+                wordToGuess = getRandomWord(easyWords);
+            } else if (level == 2) {
+                wordToGuess = getRandomWord(mediumWords);
+            } else if (level == 3) {
+                wordToGuess = getRandomWord(hardWords);
+            }
+        }
+    }
+
+    std::ofstream file("player_scores.txt", std::ios::app);
+    if (file.is_open()) {
+        file << "Player: " << playerName << " | Score: " << player.getScore() << "\n";
+        file.close();
+        std::cout << "Player score saved to 'player_scores.txt'.\n";
+    } else {
+        std::cerr << "Error saving player score.\n";
+    }
+
+    std::ifstream leaderboardFile("player_scores.txt");
+    if (leaderboardFile.is_open()) {
+        std::cout << "\nLeaderboard:\n";
+        std::string line;
+        while (std::getline(leaderboardFile, line)) {
+            std::cout << line << "\n";
+        }
+        leaderboardFile.close();
+    } else {
+        std::cerr << "Error loading leaderboard.\n";
+    }
 
     return 0;
 }
