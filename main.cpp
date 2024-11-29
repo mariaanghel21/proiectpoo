@@ -83,7 +83,7 @@ int main() {
     bool playAgain = true;
 
     while (playAgain) {
-        HangmanGame game(player, wordToGuess, 6);  
+        HangmanGame game(player, wordToGuess, 6);
         game.play();
 
         totalGames++;
@@ -99,7 +99,6 @@ int main() {
         if (playChoice != 'y' && playChoice != 'Y') {
             playAgain = false;
         } else {
-            
             std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
             std::cin >> level;
             if (level == 1) {
@@ -112,26 +111,8 @@ int main() {
         }
     }
 
-    std::ofstream file("player_scores.txt", std::ios::app);
-    if (file.is_open()) {
-        file << "Player: " << playerName << " | Score: " << player.getScore() << "\n";
-        file.close();
-        std::cout << "Player score saved to 'player_scores.txt'.\n";
-    } else {
-        std::cerr << "Error saving player score.\n";
-    }
-
-    std::ifstream leaderboardFile("player_scores.txt");
-    if (leaderboardFile.is_open()) {
-        std::cout << "\nLeaderboard:\n";
-        std::string line;
-        while (std::getline(leaderboardFile, line)) {
-            std::cout << line << "\n";
-        }
-        leaderboardFile.close();
-    } else {
-        std::cerr << "Error loading leaderboard.\n";
-    }
+    std::cout << "\nTotal Games Played: " << totalGames << "\n";
+    std::cout << "Total Score: " << totalScore << "\n";
 
     return 0;
 }
