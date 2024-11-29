@@ -13,6 +13,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(cmake/Options.cmake)
 
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/headers)
+
+
 ###############################################################################
 
 # external dependencies with FetchContent
