@@ -4,6 +4,19 @@ private:
     Player player;
     Word word;
     GameStats stats;
+ void displayHangman() const {
+        const std::array<std::string, 7> hangmanStages = {
+            " _______ \n |       |\n |       \n |       \n |       \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |       \n |       \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |       |\n |       \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |      /|\n |       \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |      /|\\\n |       \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |      /|\\\n |      / \n |       \n |______ \n", 
+            " _______ \n |       |\n |       O\n |      /|\\\n |      / \\ \n |       \n |______ \n" 
+        };
+        std::cout << hangmanStages[6 - stats.getGuessesRemaining()] << std::endl;
+    }
+
 
 public:
     HangmanGame(const Player& player, const std::string& word, int maxGuesses)
@@ -30,6 +43,7 @@ public:
                 player.addScore(10);
             } else if (!stats.hasGuessesLeft()) {
                 std::cout << "Game over! Out of guesses.\n";
+                displayHangman();
             }
         }
     }
