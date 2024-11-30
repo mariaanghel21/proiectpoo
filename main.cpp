@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include "headers/Player.h"
-#include "headersWord.h"
+#include "headers/Word.h"
 #include "headers/HangmanGame.h"
 #include "headers/GameStats.h"
 
