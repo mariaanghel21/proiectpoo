@@ -12,13 +12,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(cmake/Options.cmake)
-add_executable(${PROJECT_NAME}
-    main.cpp
-    generated/src/Helper.cpp
-)
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/headers)
-
 
 ###############################################################################
 
