@@ -8,10 +8,10 @@
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
-#include "../headers/Player.h"
-#include "../headersWord.h"
-#include "../headers/HangmanGame.h"
-#include "../headers/GameStats.h"
+#include "headers/Player.h"
+#include "headersWord.h"
+#include "headers/HangmanGame.h"
+#include "headers/GameStats.h"
 
 void loadWords(std::vector<std::string>& easyWords, std::vector<std::string>& mediumWords, std::vector<std::string>& hardWords) {
     std::ifstream file("tastatura.txt");
