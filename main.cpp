@@ -13,120 +13,6 @@
 #include "headers/HangmanGame.h"
 #include "headers/GameStats.h"
 
-class Player {
-private:
-    std::string name;
-    int score;
-
-public:
-    Player(const std::string& name, int score = 0) : name(name), score(score) {}
-
-    Player(const Player& other) : name(other.name), score(other.score) {}
-
-    Player& operator=(const Player& other) {
-        if (this == &other) return *this;
-        name = other.name;
-        score = other.score;
-        return *this;
-    }
-
-    ~Player() {}
-
-    void addScore(int points) { score += points; }
-    int getScore() const { return score; }
-
-    friend std::ostream& operator<<(std::ostream& os, const Player& player) {
-        os << "Player: " << player.name << " | Score: " << player.score;
-        return os;
-    }
-};
-
-class Word {
-private:
-    std::string word;
-    std::string guessed;
-
-public:
-    Word(const std::string& word) : word(word), guessed(word.size(), '_') {}
-
-    bool guessLetter(char letter) {
-        bool found = false;
-        for (size_t i = 0; i < word.size(); i++) {
-            if (word[i] == letter) {
-                guessed[i] = letter;
-                found = true;
-            }
-        }
-        return found;
-    }
-
-    bool isComplete() const { return guessed == word; }
-
-    friend std::ostream& operator<<(std::ostream& os, const Word& word) {
-        os << "Current Word: " << word.guessed;
-        return os;
-    }
-};
-
-class GameStats {
-private:
-    int guessesRemaining;
-    int totalGuesses;
-
-public:
-    GameStats(int totalGuesses) : guessesRemaining(totalGuesses), totalGuesses(totalGuesses) {}
-
-    void decreaseGuesses() { if (guessesRemaining > 0) --guessesRemaining; }
-    int getGuessesRemaining() const { return guessesRemaining; }
-    bool hasGuessesLeft() const { return guessesRemaining > 0; }
-
-    friend std::ostream& operator<<(std::ostream& os, const GameStats& stats) {
-        os << "Guesses Remaining: " << stats.guessesRemaining;
-        return os;
-    }
-};
-
-class HangmanGame {
-private:
-    Player player;
-    Word word;
-    GameStats stats;
-
-public:
-    HangmanGame(const Player& player, const std::string& word, int maxGuesses)
-        : player(player), word(word), stats(maxGuesses) {}
-
-    void play() {
-        char guess;
-        while (!word.isComplete() && stats.hasGuessesLeft()) {
-            std::cout << *this << "\nEnter your guess: ";
-            std::cin >> guess;
-
-            if (!std::cin) {
-                std::cout << "Invalid input. Please enter a single letter.\n";
-                std::cin.clear();  
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
-                continue;
-            }
-
-            if (!word.guessLetter(guess)) {
-                stats.decreaseGuesses();
-            }
-            if (word.isComplete()) {
-                std::cout << "Congratulations! You've guessed the word!\n";
-                player.addScore(10);
-            } else if (!stats.hasGuessesLeft()) {
-                std::cout << "Game over! Out of guesses.\n";
-            }
-        }
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const HangmanGame& game) {
-        os << game.player << "\n" << game.word << "\n" << game.stats;
-        return os;
-    }
-};
-
 void loadWords(std::vector<std::string>& easyWords, std::vector<std::string>& mediumWords, std::vector<std::string>& hardWords) {
     std::ifstream file("tastatura.txt");
     if (!file.is_open()) {
@@ -158,7 +44,6 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
-
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
@@ -193,8 +78,43 @@ int main() {
     }
 
     Player player(playerName);
-    HangmanGame game(player, wordToGuess, 6);  
-    game.play();
+    int totalGames = 0;
+    int totalScore = 0;
+    bool playAgain = true;
+
+    while (playAgain) {
+        
+        HangmanGame game(player, wordToGuess, 6, level);
+
+        game.play(level);
+
+        totalGames++;
+        totalScore += player.getScore();
+
+        std::cout << "Total Games Played: " << totalGames << "\n";
+        std::cout << "Total Score: " << totalScore << "\n";
+
+        char playChoice;
+        std::cout << "Do you want to play again? (y/n): ";
+        std::cin >> playChoice;
+
+        if (playChoice != 'y' && playChoice != 'Y') {
+            playAgain = false;
+        } else {
+            std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
+            std::cin >> level;
+            if (level == 1) {
+                wordToGuess = getRandomWord(easyWords);
+            } else if (level == 2) {
+                wordToGuess = getRandomWord(mediumWords);
+            } else if (level == 3) {
+                wordToGuess = getRandomWord(hardWords);
+            }
+        }
+    }
+
+    std::cout << "\nTotal Games Played: " << totalGames << "\n";
+    std::cout << "Total Score: " << totalScore << "\n";
 
     return 0;
 }

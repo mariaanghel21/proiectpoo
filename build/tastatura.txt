@@ -1,0 +1,35 @@
+# Easy
+cap
+masa
+casa
+cal
+fruct
+mac
+floc
+nuca
+pix
+lac
+
+# Medium
+telefon
+bicicleta
+fereastra
+calculator
+plafon
+pantof
+prajitura
+valiza
+oglinda
+farfurie
+
+# Hard
+electrocasnice
+sternocleidomastoidian
+autostrada
+encefalografie
+ventilator
+cartografie
+electroencefaograma
+constructie
+electricitate
+matematica
