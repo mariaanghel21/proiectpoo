@@ -53,6 +53,10 @@ endif()
 add_executable(${PROJECT_NAME}
         main.cpp
         generated/src/Helper.cpp
+        headers/GameStats.h
+        headers/HangmanGame.h
+        headers/Player.h
+        headers/Word.h
 )
 
 include(cmake/CompilerFlags.cmake)
