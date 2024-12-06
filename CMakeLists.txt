@@ -52,11 +52,11 @@ endif()
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${PROJECT_NAME}
         main.cpp
-        generated/src/Helper.cpp
         headers/GameStats.h
         headers/HangmanGame.h
         headers/Player.h
         headers/Word.h
+        generated/src/Helper.cpp
 )
 
 include(cmake/CompilerFlags.cmake)
@@ -95,11 +95,6 @@ if (WIN32 AND SFML_BUILD_AUDIO)
     )
 endif()
 
-
-include(cmake/CopyHelper.cmake)
-copy_files(FILES tastatura.txt)
-# copy_files(FILES tastatura.txt config.json DIRECTORY images sounds)
-# copy_files(DIRECTORY images sounds)
 
 include(cmake/CopyHelper.cmake)
 copy_files(FILES tastatura.txt)
