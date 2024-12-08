@@ -83,6 +83,7 @@ public:
 
             if (!word.guessLetter(guess)) {
                 stats.decreaseGuesses();
+                displayHangman();
             }
 
             if (word.isComplete()) {
@@ -93,6 +94,7 @@ public:
                 std::cout << "Game over! Out of guesses.\n";
                 displayHangman();
             }
+            std::cout << "The word was: " << word.getWord() << "\n";
         }
     }
 
