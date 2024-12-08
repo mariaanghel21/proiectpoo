@@ -1,4 +1,13 @@
 #pragma once
+
+#include "Player.h"
+#include "Word.h"
+#include "GameStats.h"
+
+class GameStats;
+
+
+
 class HangmanGame {
 private:
     Player player;
@@ -21,7 +30,11 @@ private:
     }
 
     void giveHint(int level) {
+
+        if (static_cast<size_t>(hintCount) < word.getWord().size()) {
+
         if (hintCount < word.getWord().size()) {
+ 
             for (size_t i = 0; i < word.getWord().size(); i++) {
                 if (word.getWord()[i] == '_') {
                     word.guessLetter(word.getWord()[i]);
@@ -87,4 +100,7 @@ public:
         os << game.player << "\n" << game.word << "\n" << game.stats;
         return os;
     }
+
+};
+
 };
