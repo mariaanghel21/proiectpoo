@@ -1,6 +1,8 @@
 #pragma once
 #include <cstring>
 #include <string.h>
+#include <iostream>
+
 
 class Word {
 private:
@@ -22,6 +24,10 @@ public:
     }
 
     bool isComplete() const { return guessed == word; }
+
+    std::string getWord() const { return word; }
+
+    std::string getGuessed() const { return guessed; }
 
     friend std::ostream& operator<<(std::ostream& os, const Word& word) {
         os << "Current Word: " << word.guessed;
