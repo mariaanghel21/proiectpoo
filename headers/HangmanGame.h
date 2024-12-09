@@ -1,12 +1,11 @@
 #pragma once
 
+#include <iostream>
+#include <array> 
+#include <limits> 
 #include "Player.h"
 #include "Word.h"
 #include "GameStats.h"
-
-class GameStats;
-
-
 
 class HangmanGame {
 private:
@@ -30,12 +29,8 @@ private:
     }
 
     void giveHint(int level) {
-
         if (static_cast<size_t>(hintCount) < word.getWord().size()) {
-
-        if (hintCount < word.getWord().size()) {
- 
-            for (size_t i = 0; i < word.getWord().size(); i++) {
+            for (size_t i = 0; i < word.getWord().size(); ++i) {
                 if (word.getWord()[i] == '_') {
                     word.guessLetter(word.getWord()[i]);
                     hintCount++;
@@ -85,24 +80,21 @@ public:
                 stats.decreaseGuesses();
                 displayHangman();
             }
-
-            if (word.isComplete()) {
-                std::cout << "Congratulations! You've guessed the word!\n";
-                int scoreBonus = 10 - (hintCount * hintPenalty);  
-                player.addScore(scoreBonus);
-            } else if (!stats.hasGuessesLeft()) {
-                std::cout << "Game over! Out of guesses.\n";
-                displayHangman();
-            }
-            std::cout << "The word was: " << word.getWord() << "\n";
         }
+
+        if (word.isComplete()) {
+            std::cout << "Congratulations! You've guessed the word!\n";
+            int scoreBonus = 10 - (hintCount * hintPenalty);  
+            player.addScore(scoreBonus);
+        } else {
+            std::cout << "Game over! Out of guesses.\n";
+            displayHangman();
+        }
+        std::cout << "The word was: " << word.getWord() << "\n";
     }
 
     friend std::ostream& operator<<(std::ostream& os, const HangmanGame& game) {
         os << game.player << "\n" << game.word << "\n" << game.stats;
         return os;
     }
-
-};
-
 };
