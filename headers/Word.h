@@ -3,13 +3,13 @@
 #include <string.h>
 #include <iostream>
 
+
 class Word {
 private:
-    std::string word;     
-    std::string guessed;  
+    std::string word;
+    std::string guessed;
 
 public:
-
     Word(const std::string& word) : word(word), guessed(word.size(), '_') {}
 
     bool guessLetter(char letter) {

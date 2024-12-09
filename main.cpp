@@ -51,7 +51,14 @@ int main() {
         std::cerr << "No words loaded from file. Exiting.\n";
         return 1;
     }
-
+    std::cout << "Welcome to Brutal Hangman!\n" ;
+    std::cout << "Test your vocabulary and strategic thinking while trying to achieve the highest score possible!\n";
+    std::cout << "Here are the rules:\n";
+    std::cout << "You must guess the given word in 6 attempts.\n";
+    std::cout << "You can use ? for a hint, but you will be penalized based on the difficulty level: 1 point for Easy, 2 for Medium, and 3 for Hard.\n";
+    std::cout << "You will be hanged with the blue console cable!\n";
+    std::cout << "Are you ready to be hanged?\n";
+    
     std::string playerName;
     std::cout << "Enter player name: ";
     std::getline(std::cin, playerName);
@@ -84,7 +91,7 @@ int main() {
 
     while (playAgain) {
         
-        HangmanGame game(player, wordToGuess, 6, level);
+        HangmanGame game(player, wordToGuess, 6, static_cast<int>(level));
 
         game.play(level);
 
@@ -116,5 +123,4 @@ int main() {
     std::cout << "\nTotal Games Played: " << totalGames << "\n";
     std::cout << "Total Score: " << totalScore << "\n";
 
-    return 0;
-}
+    return 0;}

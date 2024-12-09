@@ -26,10 +26,10 @@ farfurie
 electrocasnice
 sternocleidomastoidian
 autostrada
-encefalografie
 ventilator
 cartografie
-electroencefaograma
+electroencefalograma
 constructie
 electricitate
 matematica
+
