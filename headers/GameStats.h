@@ -2,7 +2,7 @@
 class GameStats {
 private:
     int guessesRemaining;
-    //int totalGuesses;
+    int totalGuesses;
 
 public:
     GameStats(int totalGuesses) : guessesRemaining(totalGuesses), totalGuesses(totalGuesses) {}
