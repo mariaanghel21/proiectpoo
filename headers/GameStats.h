@@ -12,7 +12,8 @@ public:
     bool hasGuessesLeft() const { return guessesRemaining > 0; }
 
     friend std::ostream& operator<<(std::ostream& os, const GameStats& stats) {
-        os << "Guesses Remaining: " << stats.guessesRemaining;
+        os << "Guesses Remaining: " << stats.guessesRemaining
+           << ", Total Guesses: " << stats.totalGuesses;
         return os;
     }
 
