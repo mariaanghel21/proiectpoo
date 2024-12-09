@@ -56,21 +56,29 @@ int main() {
     std::cout << "Enter player name: ";
     std::getline(std::cin, playerName);
 
-    int level;
+    int level = 0;
+    while (true) {
     std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
     std::cin >> level;
 
-    std::string wordToGuess;
-    if (level == 1) {
-        wordToGuess = getRandomWord(easyWords);
-    } else if (level == 2) {
-        wordToGuess = getRandomWord(mediumWords);
-    } else if (level == 3) {
-        wordToGuess = getRandomWord(hardWords);
+    if (std::cin.fail() || level < 1 || level > 3) {
+        std::cin.clear();  
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
+        std::cout << "Invalid level selected! Please enter a number between 1 and 3.\n";
     } else {
-        std::cout << "Invalid level selected!\n";
-        return 1;
+        break;  
     }
+}
+
+std::string wordToGuess;
+if (level == 1) {
+    wordToGuess = getRandomWord(easyWords);
+} else if (level == 2) {
+    wordToGuess = getRandomWord(mediumWords);
+} else if (level == 3) {
+    wordToGuess = getRandomWord(hardWords);
+}
+
 
     if (wordToGuess.empty()) {
         std::cerr << "No valid word selected for the game. Exiting.\n";
