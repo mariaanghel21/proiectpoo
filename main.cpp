@@ -94,7 +94,6 @@ if (level == 1) {
         totalGames++;
         totalScore += player.getScore();
 
-        game.debugPrint();
 
         std::cout << "Total Games Played: " << totalGames << "\n";
         std::cout << "Total Score: " << totalScore << "\n";
