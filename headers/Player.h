@@ -5,7 +5,7 @@ private:
     int score;
 
 public:
-    Player(const std::string& name, int score = 0) : name(name), score(score) {}
+   explicit Player(const std::string& name, int score = 0) : name(name), score(score) {}
 
     Player(const Player& other) : name(other.name), score(other.score) {}
 

@@ -5,7 +5,7 @@ private:
     int totalGuesses;
 
 public:
-    GameStats(int totalGuesses) : guessesRemaining(totalGuesses), totalGuesses(totalGuesses) {}
+   explicit GameStats(int totalGuesses) : guessesRemaining(totalGuesses), totalGuesses(totalGuesses) {}
 
     void decreaseGuesses() { if (guessesRemaining > 0) --guessesRemaining; }
     int getGuessesRemaining() const { return guessesRemaining; }

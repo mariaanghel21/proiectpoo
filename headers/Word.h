@@ -10,7 +10,7 @@ private:
     std::string guessed;
 
 public:
-    Word(const std::string& word) : word(word), guessed(word.size(), '_') {}
+    explicit Word(const std::string& word) : word(word), guessed(word.size(), '_') {}
 
     bool guessLetter(char letter) {
         bool found = false;
@@ -25,9 +25,9 @@ public:
 
     bool isComplete() const { return guessed == word; }
 
-    std::string getWord() const { return word; }
-
-    std::string getGuessed() const { return guessed; }
+    const std::string& getWord() const { return word; }
+    
+    const std::string& getGuessed() const { return guessed; }
 
     friend std::ostream& operator<<(std::ostream& os, const Word& word) {
         os << "Current Word: " << word.guessed;
