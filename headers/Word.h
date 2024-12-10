@@ -26,8 +26,12 @@ public:
     bool isComplete() const { return guessed == word; }
 
     const std::string& getWord() const { return word; }
-    
+
     const std::string& getGuessed() const { return guessed; }
+
+    void debugPrint() const {
+        std::cout << "Current guessed word: " << getGuessed() << std::endl;
+    }
 
     friend std::ostream& operator<<(std::ostream& os, const Word& word) {
         os << "Current Word: " << word.guessed;
