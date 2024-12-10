@@ -14,7 +14,7 @@
 #include "headers/GameStats.h"
 
 void loadWords(std::vector<std::string>& easyWords, std::vector<std::string>& mediumWords, std::vector<std::string>& hardWords) {
-    std::ifstream file("tastatura.txt");
+    std::ifstream file("cuvinte.txt");
     if (!file.is_open()) {
         std::cerr << "Error opening file!\n";
         return;
@@ -44,6 +44,14 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
+    
+    std::ifstream inputFile("tastatura.txt");
+    if (!inputFile.is_open()) {
+        std::cerr << "Error: Unable to open tastatura.txt\n";
+        return 1;
+    }
+    std::cin.rdbuf(inputFile.rdbuf());
+
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
