@@ -31,7 +31,7 @@ public:
 
 
     friend std::ostream& operator<<(std::ostream& os, const Word& word) {
-        os << "Current Word: " << word.guessed;
+        os << "Current Word: " << word.guessed << " Guessed no errors: " << word.getGuessed();
         return os;
     }
 };
