@@ -84,9 +84,9 @@ public:
 
         if (word.isComplete()) {
             std::cout << "Congratulations! You've guessed the word!\n";
-            std::cout << " You managed to pass the word test. ";
-            std::cout << "You survived and weren t hanged!";
-            std::cout << "You also earned a trophy!";
+            std::cout << " You managed to pass the word test. \n";
+            std::cout << "You survived and weren t hanged!\n";
+            std::cout << "You also earned a trophy!\n";
             std::cout << "       _______        \n";
             std::cout << "      |       |       \n";
             std::cout << "      |       |       \n";
