@@ -84,10 +84,36 @@ public:
 
         if (word.isComplete()) {
             std::cout << "Congratulations! You've guessed the word!\n";
+            std::cout << " You managed to pass the word test. ";
+            std::cout << "You survived and weren t hanged!";
+            std::cout << "You also earned a trophy!";
+            std::cout << "       _______        \n";
+            std::cout << "      |       |       \n";
+            std::cout << "      |       |       \n";
+            std::cout << "   ___|_______|___    \n";
+            std::cout << "  |               |   \n";
+            std::cout << "  |     TROPHY    |   \n";
+            std::cout << "  |_______________|   \n";
+            std::cout << "       ||   ||        \n";
+            std::cout << "       ||   ||        \n";
+            std::cout << "       ||   ||        \n";
+            std::cout << "     __||___||__      \n";
+            std::cout << "    |___________|     \n";
             int scoreBonus = 10 - (hintCount * hintPenalty);  
             player.addScore(scoreBonus);
         } else {
             std::cout << "Game over! Out of guesses.\n";
+            std::cout << "Unfortunately, you failed to pass the word test.\n";
+            std::cout << "You did not survive, and you were brutally hanged!\n";
+            std::cout << "But I'll give you a consolation trophy!\n";
+            std::cout << "   _______   \n";
+            std::cout << "  |       |  \n";
+            std::cout << "  |       |  \n";
+            std::cout << "  |_______|  \n";
+            std::cout << "     |||     \n";
+            std::cout << "     |||     \n";
+            std::cout << "   __|||__   \n";
+            std::cout << "  |_______|  \n";
             displayHangman();
         }
         std::cout << "The word was: " << word.getWord() << "\n";
