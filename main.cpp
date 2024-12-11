@@ -52,7 +52,27 @@ int main() {
         std::cerr << "No words loaded from file. Exiting.\n";
         return 1;
     }
-
+    std::cout << "----------------------------------\n";
+    std::cout << "       Welcome to Hangman!       \n";
+    std::cout << "----------------------------------\n";
+    std::cout << "Rules of the Game:\n";
+    std::cout << "The player must guess a secret word letter by letter.\n";
+    std::cout << "Each incorrect guess adds a part to the hangman drawing.\n";
+    std::cout << "The player can request a hint by pressing ? (a hint reveals one letter from the word).\n";
+    std::cout << " Requesting a hint deducts points from the total score.\n";
+    std::cout << "The game allows multiple rounds, with the total score carried over between rounds.\n";
+    std::cout << "The player earns points for each word guessed completely.\n";
+    std::cout << "The game ends when the player chooses to stop or loses.\n";
+    std::cout << "Already guessed letters are displayed to avoid repetition.\n";
+    std::cout << "The progress of the guessed word is shown as dashes and letters.\n";
+    std::cout << "The goal is to score as many points as possible and guess all the words.\n";
+    std::cout << "Difficulty levels:\n";
+    std::cout << "   - Easy: Words up to 5 letters, -1 point per hint.\n";
+    std::cout << "   - Medium: Words up to 10 letters, -2 points per hint.\n";
+    std::cout << "   - Hard: Words longer than 10 letters, -3 points per hint.\n";
+    std::cout << "You will be hanged with the blue console cable!\n";
+    std::cout << "Good luck and have fun!\n";
+    
     std::string playerName;
     std::cout << "Enter player name: ";
     std::getline(std::cin, playerName);
