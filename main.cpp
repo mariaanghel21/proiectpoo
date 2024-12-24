@@ -11,6 +11,9 @@
 #include "headers/Player.h"
 #include "headers/Word.h"
 #include "headers/HangmanGame.h"
+#include "headers/EasyModeHangman.h"  
+#include "headers/MediumModeHangman.h"  
+#include "headers/HardModeHangman.h"
 #include "headers/GameStats.h"
 
 void loadWords(std::vector<std::string>& easyWords, std::vector<std::string>& mediumWords, std::vector<std::string>& hardWords) {
@@ -44,7 +47,6 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
-    
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
@@ -72,28 +74,26 @@ int main() {
     std::cout << "   - Hard: Words longer than 10 letters, -3 points per hint.\n";
     std::cout << "You will be hanged with the blue console cable!\n";
     std::cout << "Good luck and have fun!\n";
-    
+
     std::string playerName;
     std::cout << "Enter player name: ";
     std::getline(std::cin, playerName);
 
     int level;
-std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
-std::cin >> level;
+    std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
+    std::cin >> level;
 
-std::string wordToGuess;
-if (level == 1) {
-    wordToGuess = getRandomWord(easyWords);
-} else if (level == 2) {
-    wordToGuess = getRandomWord(mediumWords);
-} else if (level == 3) {
-    wordToGuess = getRandomWord(hardWords);
-} else {
-    std::cout << "Invalid level selected!\n";
-    return 1;
-}
-
-
+    std::string wordToGuess;
+    if (level == 1) {
+        wordToGuess = getRandomWord(easyWords);
+    } else if (level == 2) {
+        wordToGuess = getRandomWord(mediumWords);
+    } else if (level == 3) {
+        wordToGuess = getRandomWord(hardWords);
+    } else {
+        std::cout << "Invalid level selected!\n";
+        return 1;
+    }
 
     if (wordToGuess.empty()) {
         std::cerr << "No valid word selected for the game. Exiting.\n";
@@ -107,13 +107,20 @@ if (level == 1) {
 
     while (playAgain) {
         
-        HangmanGame game(player, wordToGuess, 6, static_cast<int>(level));
+        HangmanGame* game = nullptr;
 
-        game.play(level);
+        if (level == 1) {
+            game = new EasyModeHangman(player, wordToGuess, 6);
+        } else if (level == 2) {
+            game = new MediumModeHangman(player, wordToGuess, 6);
+        } else if (level == 3) {
+            game = new HardModeHangman(player, wordToGuess, 6);
+        }
+
+        game->play(level);
 
         totalGames++;
         totalScore += player.getScore();
-
 
         std::cout << "Total Games Played: " << totalGames << "\n";
         std::cout << "Total Score: " << totalScore << "\n";
@@ -135,9 +142,12 @@ if (level == 1) {
                 wordToGuess = getRandomWord(hardWords);
             }
         }
+
+        delete game;
     }
 
     std::cout << "\nTotal Games Played: " << totalGames << "\n";
     std::cout << "Total Score: " << totalScore << "\n";
 
-    return 0;}
+    return 0;
+}
