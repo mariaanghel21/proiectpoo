@@ -68,7 +68,7 @@ public:
         if (won) {
             std::cout << "Congratulations! You've guessed the word!\n";
             std::cout << " You managed to pass the word test. \n";
-            std::cout << "You survived and weren t hanged!\n";
+            std::cout << "You survived and weren't hanged!\n";
             std::cout << "You also earned a trophy!\n";
             std::cout << "       _______        \n";
             std::cout << "      |       |       \n";
@@ -98,7 +98,6 @@ public:
         }
         
         std::cout << "The word was: " << word.getWord() << "\n";
-
     }
 
     friend std::ostream& operator<<(std::ostream& os, const HangmanGame& game) {

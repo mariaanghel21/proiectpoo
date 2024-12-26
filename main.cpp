@@ -109,6 +109,7 @@ int main() {
         
         HangmanGame* game = nullptr;
 
+        
         if (level == 1) {
             game = new EasyModeHangman(player, wordToGuess, 6);
         } else if (level == 2) {
@@ -117,7 +118,7 @@ int main() {
             game = new HardModeHangman(player, wordToGuess, 6);
         }
 
-        game->play(level);
+        game->play(level); 
 
         totalGames++;
         totalScore += player.getScore();
@@ -132,8 +133,10 @@ int main() {
         if (playChoice != 'y' && playChoice != 'Y') {
             playAgain = false;
         } else {
+           
             std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
             std::cin >> level;
+
             if (level == 1) {
                 wordToGuess = getRandomWord(easyWords);
             } else if (level == 2) {
@@ -143,7 +146,7 @@ int main() {
             }
         }
 
-        delete game;
+        delete game;  
     }
 
     std::cout << "\nTotal Games Played: " << totalGames << "\n";
