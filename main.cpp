@@ -54,6 +54,7 @@ int main() {
         std::cerr << "No words loaded from file. Exiting.\n";
         return 1;
     }
+
     std::cout << "----------------------------------\n";
     std::cout << "       Welcome to Hangman!       \n";
     std::cout << "----------------------------------\n";
