@@ -47,7 +47,7 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
-    
+
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
