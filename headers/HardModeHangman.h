@@ -1,15 +1,16 @@
 #pragma once
 
 #include "HangmanGame.h"
+#include <memory>
 
 class HardModeHangman : public HangmanGame {
 public:
-    HardModeHangman(const Player& player, const std::string& word, int maxGuesses)
-        : HangmanGame(player, word, maxGuesses, 3) {}
+    HardModeHangman(std::unique_ptr<Player> player, std::unique_ptr<Word> word, int maxGuesses)
+        : HangmanGame(std::move(player), std::move(word), maxGuesses, 3) {}
 
     void play(int level) override {
         char guess;
-        while (!word.isComplete() && stats.hasGuessesLeft()) {
+        while (!word->isComplete() && stats->hasGuessesLeft()) {
             std::cout << *this << "\nEnter your guess: ";
             std::cin >> guess;
 
@@ -25,15 +26,16 @@ public:
                 continue;
             }
 
-            if (!word.guessLetter(guess)) {
-                stats.decreaseGuesses();
+            if (!word->guessLetter(guess)) {
+                stats->decreaseGuesses();
                 displayHangman();
             }
         }
-        displayTrophy(word.isComplete());
+        
+        displayTrophy(word->isComplete());
     }
 
-    HangmanGame* clone() const override {
-        return new HardModeHangman(*this);
+    std::unique_ptr<HangmanGame> clone() const override {
+        return std::make_unique<HardModeHangman>(*this);
     }
 };

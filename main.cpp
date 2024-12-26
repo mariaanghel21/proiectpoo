@@ -47,6 +47,7 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 }
 
 int main() {
+    
     std::vector<std::string> easyWords, mediumWords, hardWords;
     loadWords(easyWords, mediumWords, hardWords);
 
@@ -108,18 +109,23 @@ int main() {
 
     while (playAgain) {
         
-        HangmanGame* game = nullptr;
+        std::unique_ptr<HangmanGame> game;
 
-        
         if (level == 1) {
-            game = new EasyModeHangman(player, wordToGuess, 6);
+
+            game = std::make_unique<EasyModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
+
         } else if (level == 2) {
-            game = new MediumModeHangman(player, wordToGuess, 6);
+
+            game = std::make_unique<MediumModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
+
         } else if (level == 3) {
-            game = new HardModeHangman(player, wordToGuess, 6);
+
+            game = std::make_unique<HardModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
+
         }
 
-        game->play(level); 
+        game->play(level);
 
         totalGames++;
         totalScore += player.getScore();
@@ -134,7 +140,7 @@ int main() {
         if (playChoice != 'y' && playChoice != 'Y') {
             playAgain = false;
         } else {
-           
+
             std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
             std::cin >> level;
 
@@ -147,7 +153,6 @@ int main() {
             }
         }
 
-        delete game;  
     }
 
     std::cout << "\nTotal Games Played: " << totalGames << "\n";
