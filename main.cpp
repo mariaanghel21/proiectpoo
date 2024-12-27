@@ -48,12 +48,13 @@ std::string getRandomWord(const std::vector<std::string>& words) {
 
 int main() {
 
-    std::vector<std::string> easyWords, mediumWords, hardWords;
-    loadWords(easyWords, mediumWords, hardWords);
+    try {
+        std::vector<std::string> easyWords, mediumWords, hardWords;
+        loadWords(easyWords, mediumWords, hardWords);
 
-    if (easyWords.empty() || mediumWords.empty() || hardWords.empty()) {
-        std::cerr << "No words loaded from file. Exiting.\n";
-        return 1;
+        if (easyWords.empty() || mediumWords.empty() || hardWords.empty()) {
+            throw FileOpenException();  
+        }
     }
 
     std::cout << "----------------------------------\n";
@@ -86,21 +87,20 @@ int main() {
     std::cin >> level;
 
     std::string wordToGuess;
-    if (level == 1) {
-        wordToGuess = getRandomWord(easyWords);
-    } else if (level == 2) {
-        wordToGuess = getRandomWord(mediumWords);
-    } else if (level == 3) {
-        wordToGuess = getRandomWord(hardWords);
-    } else {
-        std::cout << "Invalid level selected!\n";
-        return 1;
-    }
+        if (level == 1) {
+            wordToGuess = getRandomWord(easyWords);
+        } else if (level == 2) {
+            wordToGuess = getRandomWord(mediumWords);
+        } else if (level == 3) {
+            wordToGuess = getRandomWord(hardWords);
+        } else {
+            throw InvalidLevelException();  
+        }
 
-    if (wordToGuess.empty()) {
-        std::cerr << "No valid word selected for the game. Exiting.\n";
-        return 1;
-    }
+        if (wordToGuess.empty()) {
+            throw WordNotFoundException();  
+        }
+
 
     Player player(playerName);
     int totalGames = 0;

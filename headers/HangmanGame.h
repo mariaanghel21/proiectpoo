@@ -7,6 +7,35 @@
 #include "Player.h"
 #include "Word.h"
 #include "GameStats.h"
+#include <stdexcept>  
+
+class HangmanException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "General Hangman exception occurred.";
+    }
+};
+
+class InvalidLevelException : public HangmanException {
+public:
+    const char* what() const noexcept override {
+        return "Invalid level selected for Hangman.";
+    }
+};
+
+class WordNotFoundException : public HangmanException {
+public:
+    const char* what() const noexcept override {
+        return "No valid word found for the game.";
+    }
+};
+
+class FileOpenException : public HangmanException {
+public:
+    const char* what() const noexcept override {
+        return "Error opening the word file.";
+    }
+};
 
 class HangmanGame {
 protected:
@@ -16,14 +45,14 @@ protected:
     int hintCount;
     int hintPenalty;
 
-    HangmanGame(std::unique_ptr<Player> player, std::unique_ptr<Word> word, int maxGuesses, int level)
+     HangmanGame(std::unique_ptr<Player> player, std::unique_ptr<Word> word, int maxGuesses, int level)
         : player(std::move(player)), word(std::move(word)), stats(std::make_unique<GameStats>(maxGuesses)), hintCount(0) {
         if (level == 2) {
             hintPenalty = 2;
         } else if (level == 3) {
             hintPenalty = 3;
-        } else {
-            hintPenalty = 1;
+        } else if (level != 1) {
+            throw InvalidLevelException(); 
         }
     }
 
