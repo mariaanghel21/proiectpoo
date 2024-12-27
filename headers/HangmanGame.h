@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Word.h"
 #include "GameStats.h"
+#include "Exception.h"
 
 
 class HangmanGame {
