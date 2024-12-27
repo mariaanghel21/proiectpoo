@@ -106,7 +106,6 @@ public:
         return os;
     }
 
-    
     HangmanGame(const HangmanGame& other)
         : player(std::make_unique<Player>(*other.player)),
           word(std::make_unique<Word>(*other.word)),
@@ -114,17 +113,17 @@ public:
           hintCount(other.hintCount),
           hintPenalty(other.hintPenalty) {}
 
-    HangmanGame& operator=(HangmanGame other) {
-        swap(*this, other);
+    HangmanGame& operator=(const HangmanGame& other) {
+        if (this != &other) {
+            player = std::make_unique<Player>(*other.player);
+            word = std::make_unique<Word>(*other.word);
+            stats = std::make_unique<GameStats>(*other.stats);
+            hintCount = other.hintCount;
+            hintPenalty = other.hintPenalty;
+        }
         return *this;
     }
 
-    friend void swap(HangmanGame& first, HangmanGame& second) {
-        using std::swap;
-        swap(first.player, second.player);
-        swap(first.word, second.word);
-        swap(first.stats, second.stats);
-        swap(first.hintCount, second.hintCount);
-        swap(first.hintPenalty, second.hintPenalty);
-    }
+    HangmanGame(HangmanGame&& other) noexcept = default;
+    HangmanGame& operator=(HangmanGame&& other) noexcept = default;
 };
