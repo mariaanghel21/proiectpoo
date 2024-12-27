@@ -138,7 +138,7 @@ int main() {
                 playAgain = false;
 
             } else {
-                
+
                 std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
                 std::cin >> level;
 
