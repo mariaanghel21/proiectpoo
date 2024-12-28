@@ -122,10 +122,13 @@ int main() {
 
             }
 
+            auto clonedGame = game->clone(); 
+
             HangmanGame::totalGamesCreated++;
 
             game->play(level);
 
+            HangmanGame::updateMaxScore(player.getScore());
             totalGames++;
             totalScore += player.getScore();
 
@@ -135,6 +138,8 @@ int main() {
 
             std::cout << "Total Games Played: " << totalGames << "\n";
             std::cout << "Total Score: " << totalScore << "\n";
+            std::cout << "Highest Score Ever: " << HangmanGame::getMaxScoreEver() << "\n";
+            std::cout << "Total Games Created: " << HangmanGame::getTotalGamesCreated() << "\n";
 
             char playChoice;
             std::cout << "Do you want to play again? (y/n): ";
