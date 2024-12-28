@@ -107,6 +107,7 @@ int main() {
         bool playAgain = true;
 
         while (playAgain) {
+
             std::unique_ptr<HangmanGame> game;
 
             if (level == 1) {
