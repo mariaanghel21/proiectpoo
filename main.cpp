@@ -122,10 +122,16 @@ int main() {
 
             }
 
+            HangmanGame::totalGamesCreated++;
+
             game->play(level);
 
             totalGames++;
             totalScore += player.getScore();
+
+            if (player.getScore() > HangmanGame::maxScoreEver) {
+                HangmanGame::maxScoreEver = player.getScore(); 
+            }
 
             std::cout << "Total Games Played: " << totalGames << "\n";
             std::cout << "Total Score: " << totalScore << "\n";
@@ -154,6 +160,10 @@ int main() {
 
         std::cout << "\nTotal Games Played: " << totalGames << "\n";
         std::cout << "Total Score: " << totalScore << "\n";
+
+        std::cout << "\nGlobal Statistics:\n";
+        std::cout << "Total Games Created: " << HangmanGame::totalGamesCreated << "\n";
+        std::cout << "Highest Score Ever: " << HangmanGame::maxScoreEver << "\n";
 
         return 0;
 

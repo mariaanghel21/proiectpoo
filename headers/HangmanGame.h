@@ -18,7 +18,7 @@ protected:
     int hintCount;
     int hintPenalty;
 
-     HangmanGame(std::unique_ptr<Player> player, std::unique_ptr<Word> word, int maxGuesses, int level)
+    HangmanGame(std::unique_ptr<Player> player, std::unique_ptr<Word> word, int maxGuesses, int level)
         : player(std::move(player)), word(std::move(word)), stats(std::make_unique<GameStats>(maxGuesses)), hintCount(0) {
         if (level == 2) {
             hintPenalty = 2;
@@ -27,6 +27,8 @@ protected:
         } else if (level != 1) {
             throw InvalidLevelException(); 
         }
+
+        totalGamesCreated++; 
     }
 
     virtual void displayHangman() const {
@@ -128,4 +130,25 @@ public:
 
     HangmanGame(HangmanGame&& other) noexcept = default;
     HangmanGame& operator=(HangmanGame&& other) noexcept = default;
+
+    static int totalGamesCreated;  
+    static int maxScoreEver;       
+
+    static int getTotalGamesCreated() {
+        return totalGamesCreated;
+    }
+
+    static void updateMaxScore(int score) {
+        if (score > maxScoreEver) {
+            maxScoreEver = score;
+        }
+    }
+
+    static int getMaxScoreEver() {
+        return maxScoreEver;
+    }
 };
+
+int HangmanGame::totalGamesCreated = 0;
+int HangmanGame::maxScoreEver = 0;
+
