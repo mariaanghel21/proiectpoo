@@ -16,46 +16,14 @@
 #include "headers/HardModeHangman.h"
 #include "headers/GameStats.h"
 #include "headers/Exception.h"
-
-void loadWords(std::vector<std::string>& easyWords, std::vector<std::string>& mediumWords, std::vector<std::string>& hardWords) {
-    std::ifstream file("cuvinte.txt");
-    if (!file.is_open()) {
-        std::cerr << "Error opening file!\n";
-        return;
-    }
-
-    std::string word;
-    while (file >> word) {
-        if (word.length() <= 5) {
-            easyWords.push_back(word);
-        } else if (word.length() <= 10) {
-            mediumWords.push_back(word);
-        } else {
-            hardWords.push_back(word);
-        }
-    }
-
-    file.close();
-}
-
-std::string getRandomWord(const std::vector<std::string>& words) {
-    if (words.empty()) {
-        return "";
-    }
-    srand(time(0));
-    int randomIndex = rand() % words.size();
-    return words[randomIndex];
-}
+#include "headers/GameManager.h"
+#include "headers/HangmanFactory.h"  
 
 int main() {
 
     try {
-        std::vector<std::string> easyWords, mediumWords, hardWords;
-        loadWords(easyWords, mediumWords, hardWords);
-
-        if (easyWords.empty() || mediumWords.empty() || hardWords.empty()) {
-            throw FileOpenException();  
-        }
+        
+        GameManager gameManager;
 
         std::cout << "----------------------------------\n";
         std::cout << "       Welcome to Hangman!       \n";
@@ -86,16 +54,7 @@ int main() {
         std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
         std::cin >> level;
 
-        std::string wordToGuess;
-        if (level == 1) {
-            wordToGuess = getRandomWord(easyWords);
-        } else if (level == 2) {
-            wordToGuess = getRandomWord(mediumWords);
-        } else if (level == 3) {
-            wordToGuess = getRandomWord(hardWords);
-        } else {
-            throw InvalidLevelException();  
-        }
+        std::string wordToGuess = gameManager.getRandomWord(level);
 
         if (wordToGuess.empty()) {
             throw WordNotFoundException();  
@@ -110,18 +69,7 @@ int main() {
 
             std::unique_ptr<HangmanGame> game;
 
-            if (level == 1) {
-
-                game = std::make_unique<EasyModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
-
-            } else if (level == 2) {
-                game = std::make_unique<MediumModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
-
-            } else if (level == 3) {
-
-                game = std::make_unique<HardModeHangman>(std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
-
-            }
+            game = HangmanFactory::createGame(level, std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
 
             auto clonedGame = game->clone(); 
 
@@ -154,13 +102,7 @@ int main() {
                 std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
                 std::cin >> level;
 
-                if (level == 1) {
-                    wordToGuess = getRandomWord(easyWords);
-                } else if (level == 2) {
-                    wordToGuess = getRandomWord(mediumWords);
-                } else if (level == 3) {
-                    wordToGuess = getRandomWord(hardWords);
-                }
+                wordToGuess = gameManager.getRandomWord(level);
             }
         }
 
