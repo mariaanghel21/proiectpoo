@@ -7,7 +7,6 @@
 #include <ctime>
 #include <cstdlib>
 
-
 class GameManager {
 private:
     std::vector<std::string> easyWords;   
@@ -19,7 +18,8 @@ private:
 
 public:
     
-    GameManager() {
+    GameManager() : remainingAttempts(6), guessedWord("") { 
+        
         loadWords();  
         srand(time(0));  
     }
@@ -63,7 +63,9 @@ public:
         }
 
         int randomIndex = rand() % words->size();
-        return (*words)[randomIndex];  
+        currentWord = (*words)[randomIndex];  
+        guessedWord = std::string(currentWord.size(), '_'); 
+        return currentWord;  
     }
 
     void displayGuessedWord() const {
