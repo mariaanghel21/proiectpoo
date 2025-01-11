@@ -19,7 +19,7 @@ private:
 public:
     
     GameManager() : remainingAttempts(6), guessedWord("") { 
-        
+
         loadWords();  
         srand(time(0));  
     }
