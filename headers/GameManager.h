@@ -17,14 +17,11 @@ private:
     int remainingAttempts;               
 
 public:
-    
-    GameManager() : remainingAttempts(6), guessedWord("") { 
-
+    GameManager() : easyWords(), mediumWords(), hardWords(), currentWord(""), guessedWord(""), remainingAttempts(6) {
         loadWords();  
         srand(time(0));  
     }
 
-    
     void loadWords() {
         std::ifstream file("cuvinte.txt");  
         if (!file) {
@@ -63,13 +60,11 @@ public:
         }
 
         int randomIndex = rand() % words->size();
-        currentWord = (*words)[randomIndex];  
-        guessedWord = std::string(currentWord.size(), '_'); 
-        return currentWord;  
+        return (*words)[randomIndex];  
     }
 
     void displayGuessedWord() const {
-        std::cout << "Word: " << guessedWord << "\n";
+        std::cout << "Current word: " << guessedWord << "\n";
     }
 
     bool guessLetter(char letter) {
@@ -103,6 +98,35 @@ public:
             std::cout << "Congratulations! You guessed the word: " << currentWord << "\n";
         } else {
             std::cout << "Game over! The correct word was: " << currentWord << "\n";
+        }
+    }
+
+    void playGame(int level) {
+        currentWord = getRandomWord(level);
+        guessedWord = std::string(currentWord.length(), '_');
+        remainingAttempts = 6;
+
+        char letter;
+        bool gameFinished = false;
+
+        while (!gameFinished) {
+            displayGuessedWord();
+            std::cout << "Guess a letter: ";
+            std::cin >> letter;
+
+            bool found = guessLetter(letter);
+
+            if (found) {
+                std::cout << "Good guess!\n";
+            } else {
+                std::cout << "Try again.\n";
+            }
+
+            gameFinished = isGameOver();
+
+            if (gameFinished) {
+                gameOver();
+            }
         }
     }
 };
