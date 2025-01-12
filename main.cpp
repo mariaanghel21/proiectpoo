@@ -75,7 +75,7 @@ int main() {
 
             HangmanGame::totalGamesCreated++;
 
-            game->play(level);
+            gameManager.playGame(level);
 
             HangmanGame::updateMaxScore(player.getScore());
             totalGames++;
