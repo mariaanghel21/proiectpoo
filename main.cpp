@@ -32,7 +32,7 @@ int main() {
         std::cout << "The player must guess a secret word letter by letter.\n";
         std::cout << "Each incorrect guess adds a part to the hangman drawing.\n";
         std::cout << "The player can request a hint by pressing ? (a hint reveals one letter from the word).\n";
-        std::cout << " Requesting a hint deducts points from the total score.\n";
+        std::cout << "Requesting a hint deducts points from the total score.\n";
         std::cout << "The game allows multiple rounds, with the total score carried over between rounds.\n";
         std::cout << "The player earns points for each word guessed completely.\n";
         std::cout << "The game ends when the player chooses to stop or loses.\n";
@@ -48,18 +48,15 @@ int main() {
 
         std::string playerName;
         std::cout << "Enter player name: ";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
         std::getline(std::cin, playerName);
 
         int level;
         std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
         std::cin >> level;
 
-        GameManager gameManager;
-
-        std::string wordToGuess = gameManager.getRandomWord(level);
-
-        if (wordToGuess.empty()) {
-            throw WordNotFoundException();  
+        if (level < 1 || level > 3) {
+            throw InvalidLevelException();
         }
 
         Player player(playerName);
@@ -68,26 +65,22 @@ int main() {
         bool playAgain = true;
 
         while (playAgain) {
+        
+            std::string wordToGuess = gameManager.getRandomWord(level);
 
-            std::unique_ptr<HangmanGame> game = HangmanFactory::createGame(level, std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
+            if (wordToGuess.empty()) {
+                throw WordNotFoundException();  
+            }
 
-            auto clonedGame = game->clone(); 
+            std::unique_ptr<HangmanGame> game = HangmanFactory::createGame(
+                level, std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
 
-            HangmanGame::totalGamesCreated++;  
-
-            gameManager.playGame(level);      
-
-            game->play(level); 
-
-            HangmanGame::updateMaxScore(player.getScore());
+            gameManager.playGame(game);
+           
             totalGames++;
             totalScore += player.getScore();
 
-            if (player.getScore() > HangmanGame::maxScoreEver) {
-                HangmanGame::maxScoreEver = player.getScore(); 
-            }
-
-            std::cout << "Total Games Played: " << totalGames << "\n";
+            std::cout << "\nTotal Games Played: " << totalGames << "\n";
             std::cout << "Total Score: " << totalScore << "\n";
             std::cout << "Highest Score Ever: " << HangmanGame::getMaxScoreEver() << "\n";
             std::cout << "Total Games Created: " << HangmanGame::getTotalGamesCreated() << "\n";
@@ -100,28 +93,31 @@ int main() {
                 playAgain = false;
 
             } else {
-
+                
                 std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
                 std::cin >> level;
 
-                wordToGuess = gameManager.getRandomWord(level);  
+                if (level < 1 || level > 3) {
+                    throw InvalidLevelException();
+                }
             }
         }
 
         std::cout << "\nTotal Games Played: " << totalGames << "\n";
         std::cout << "Total Score: " << totalScore << "\n";
-
         std::cout << "\nGlobal Statistics:\n";
-        std::cout << "Total Games Created: " << HangmanGame::totalGamesCreated << "\n";
-        std::cout << "Highest Score Ever: " << HangmanGame::maxScoreEver << "\n";
+        std::cout << "Total Games Created: " << HangmanGame::getTotalGamesCreated() << "\n";
+        std::cout << "Highest Score Ever: " << HangmanGame::getMaxScoreEver() << "\n";
 
         return 0;
 
     } catch (const FileOpenException& e) {
-        std::cerr << e.what() << "\n";
+        std::cerr << "File Error: " << e.what() << "\n";
     } catch (const InvalidLevelException& e) {
-        std::cerr << e.what() << "\n";
+        std::cerr << "Invalid Level Error: " << e.what() << "\n";
     } catch (const WordNotFoundException& e) {
-        std::cerr << e.what() << "\n";
+        std::cerr << "Word Not Found Error: " << e.what() << "\n";
+    } catch (const std::exception& e) {
+        std::cerr << "Unexpected Error: " << e.what() << "\n";
     }
 }
