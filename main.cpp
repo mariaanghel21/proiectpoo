@@ -55,7 +55,7 @@ int main() {
         std::cin >> level;
 
         GameManager gameManager;
-        
+
         std::string wordToGuess = gameManager.getRandomWord(level);
 
         if (wordToGuess.empty()) {
