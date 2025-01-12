@@ -34,6 +34,38 @@ public:
         displayTrophy(word->isComplete());
     }
 
+    void displayTrophy(bool won) const override {
+        if (won) {
+            std::cout << "Congratulations! You've guessed the word in Medium Mode!\n";
+            std::cout << "            _______              \n";
+            std::cout << "         //         \\            \n";
+            std::cout << "        //   MEDIUM  \\           \n";
+            std::cout << "        |   VICTORY!  |          \n";
+            std::cout << "     ___|_____________|___      \n";
+            std::cout << "     |                   |        \n";
+            std::cout << "     |   EXCELLENT JOB   |        \n";
+            std::cout << "     |                   |        \n";
+            std::cout << "     |   KEEP IT UP!     |        \n";
+            std::cout << "     |___________________|        \n";
+            std::cout << "          ||       ||             \n";
+            std::cout << "          ||       ||             \n";
+            std::cout << "          ||       ||             \n";
+            std::cout << "       ___||_______||___          \n";
+            std::cout << "      |                 |         \n";
+            std::cout << "      |_________________|         \n";
+        } else {
+            std::cout << "You lost in Medium Mode! Better luck next time.\n";
+            std::cout << "   _______   \n";
+            std::cout << "  |       |  \n";
+            std::cout << "  | GOOD! |  \n";
+            std::cout << "  |_______|  \n";
+            std::cout << "     |||     \n";
+            std::cout << "   __|||__   \n";
+            std::cout << "  |_______|  \n";
+        }
+        std::cout << "The word was: " << word->getWord() << "\n";
+    }
+
     std::unique_ptr<HangmanGame> clone() const override {
         return std::make_unique<MediumModeHangman>(*this);
     }

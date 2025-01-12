@@ -75,31 +75,13 @@ public:
             std::cout << " You managed to pass the word test. \n";
             std::cout << "You survived and weren't hanged!\n";
             std::cout << "You earned a trophy!\n";
-            std::cout << "       _______        \n";
-            std::cout << "      |       |       \n";
-            std::cout << "      |       |       \n";
-            std::cout << "   ___|_______|___    \n";
-            std::cout << "  |               |   \n";
-            std::cout << "  |     TROPHY    |   \n";
-            std::cout << "  |_______________|   \n";
-            std::cout << "       ||   ||        \n";
-            std::cout << "       ||   ||        \n";
-            std::cout << "       ||   ||        \n";
-            std::cout << "     __||___||__      \n";
-            std::cout << "    |___________|     \n";
+            
         } else {
             std::cout << "Game over! You were hanged. Better luck next time.\n";
             std::cout << "Unfortunately, you failed to pass the word test.\n";
             std::cout << "You did not survive, and you were brutally hanged!\n";
             std::cout << "But I'll give you a consolation trophy!\n";
-            std::cout << "   _______   \n";
-            std::cout << "  |       |  \n";
-            std::cout << "  |       |  \n";
-            std::cout << "  |_______|  \n";
-            std::cout << "     |||     \n";
-            std::cout << "     |||     \n";
-            std::cout << "   __|||__   \n";
-            std::cout << "  |_______|  \n";
+            
         }
 
         std::cout << "The word was: " << word->getWord() << "\n";

@@ -35,6 +35,44 @@ public:
         displayTrophy(word->isComplete());
     }
 
+    void displayTrophy(bool won) const override {
+        if (won) {
+            std::cout << "Congratulations! You've guessed the word in Hard Mode!\n";
+            std::cout << "              _______                    \n";
+            std::cout << "            //       \\                  \n";
+            std::cout << "           //   HARD   \\                 \n";
+            std::cout << "          //   MASTER!  \\               \n";
+            std::cout << "          |             |                \n";
+            std::cout << "       ___|_____________|___             \n";
+            std::cout << "       |                   |              \n";
+            std::cout << "       |  LEGENDARY WIN!   |              \n";
+            std::cout << "       |                   |              \n";
+            std::cout << "       |   TRUE CHAMPION   |              \n";
+            std::cout << "       |                   |              \n";
+            std::cout << "       |___________________|              \n";
+            std::cout << "            ||       ||                   \n";
+            std::cout << "            ||       ||                   \n";
+            std::cout << "            ||       ||                   \n";
+            std::cout << "         ___||_______||___                \n";
+            std::cout << "        |                 |               \n";
+            std::cout << "        |                 |               \n";
+            std::cout << "        |_________________|               \n";
+        } else {
+            std::cout << "You lost in Hard Mode! Better luck next time.\n";
+            std::cout << "Here's a consolation trophy:\n";
+            std::cout << "   __________   \n";
+            std::cout << "  |          |  \n";
+            std::cout << "  |   GREAT  |  \n";
+            std::cout << "  |   JOB!   |  \n";
+            std::cout << "  |__________|  \n";
+            std::cout << "      |||        \n";
+            std::cout << "      |||        \n";
+            std::cout << "    __|||__      \n";
+            std::cout << "   |_______|     \n";
+        }
+        std::cout << "The word was: " << word->getWord() << "\n";
+    }
+
     std::unique_ptr<HangmanGame> clone() const override {
         return std::make_unique<HardModeHangman>(*this);
     }
