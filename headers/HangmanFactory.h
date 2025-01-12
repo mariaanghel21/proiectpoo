@@ -11,6 +11,10 @@
 #include "Player.h"
 #include "Word.h"
 #include "Exception.h"
+#include "EasyModeHangmanFactory.h"
+#include "MediumModeHangmanFactory.h"
+#include "HardModeHangmanFactory.h"
+
 
 class HangmanFactory {
 public:
