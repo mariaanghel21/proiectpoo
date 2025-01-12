@@ -22,7 +22,7 @@
 int main() {
 
     try {
-        
+
         GameManager gameManager;
 
         std::cout << "----------------------------------\n";
@@ -54,6 +54,8 @@ int main() {
         std::cout << "Select difficulty level (1: Easy, 2: Medium, 3: Hard): ";
         std::cin >> level;
 
+        GameManager gameManager;
+        
         std::string wordToGuess = gameManager.getRandomWord(level);
 
         if (wordToGuess.empty()) {
@@ -67,17 +69,15 @@ int main() {
 
         while (playAgain) {
 
-            std::unique_ptr<HangmanGame> game;
-
-            game = HangmanFactory::createGame(level, std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
+            std::unique_ptr<HangmanGame> game = HangmanFactory::createGame(level, std::make_unique<Player>(player), std::make_unique<Word>(wordToGuess), 6);
 
             auto clonedGame = game->clone(); 
 
-            HangmanGame::totalGamesCreated++;
+            HangmanGame::totalGamesCreated++;  
 
-            gameManager.playGame(level);
+            gameManager.playGame(level);      
 
-            game->play(level);
+            game->play(level); 
 
             HangmanGame::updateMaxScore(player.getScore());
             totalGames++;
@@ -104,7 +104,7 @@ int main() {
                 std::cout << "Select difficulty level for the next round (1: Easy, 2: Medium, 3: Hard): ";
                 std::cin >> level;
 
-                wordToGuess = gameManager.getRandomWord(level);
+                wordToGuess = gameManager.getRandomWord(level);  
             }
         }
 

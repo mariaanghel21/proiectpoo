@@ -133,4 +133,3 @@ public:
 
 int HangmanGame::totalGamesCreated = 0;
 int HangmanGame::maxScoreEver = 0;
-
